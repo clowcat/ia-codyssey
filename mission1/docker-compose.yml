@@ -1,0 +1,26 @@
+services:
+  my-web:
+    build: .
+    container_name: web-service
+    image: nginx:alpine
+    ports:
+      - "8081:80"
+    volumes:
+      - ./html:/usr/share/nginx/html
+    environment:
+      - APP_ENV=development
+      - SERVER_ROLE=development
+      - ADMIN_EMAIL=cyanc0112@gmail.com
+    networks:
+      - backend-net
+    depends_on:
+      - my-db
+  my-db:
+    image: redis:alpine
+    container_name: redis-service
+    expose:
+      - "6379"
+
+networks:
+  backend-net:
+    driver: bridge
