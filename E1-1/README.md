@@ -35,7 +35,7 @@ cyanc01125000@c4r4s3 ~ % pwd
 
 - **touch, echo, cat 설명**
 
-| :명령어: | :설명: | :예시: |
+| 명령어 | 설명 | 예시 |
 | :----: | :----: | :----: |
 | touch | 빈 파일 생성 |  touch README.txt |
 | echo | 내용 작성 | echo "Mission 1 Complete" > README.txt |
@@ -120,6 +120,140 @@ drwxr--r--  2 cyanc01125000  cyanc01125000  64 Apr  3 20:19 test
 ```
 
 
+- **Docker 설치 및 점검**
+  . docker --version
+  . docker info
+  . docker images
+  . docker ps, docker ps -a
+  . docker logs web-container
+  . docker stats
+
+```bash
+cyanc01125000@c4r4s3 mi1 % docker --version
+
+Docker version 28.5.2, build ecc6942
+cyanc01125000@c4r4s3 mi1 % docker info
+Client:
+ Version:    28.5.2
+ Context:    orbstack
+ Debug Mode: false
+ Plugins:
+  buildx: Docker Buildx (Docker Inc.)
+    Version:  v0.29.1
+    Path:     /Users/cyanc01125000/.docker/cli-plugins/docker-buildx
+  compose: Docker Compose (Docker Inc.)
+    Version:  v2.40.3
+    Path:     /Users/cyanc01125000/.docker/cli-plugins/docker-compose
+
+Server:
+ Containers: 5
+  Running: 2
+  Paused: 0
+  Stopped: 3
+ Images: 3
+ Server Version: 28.5.2
+ Storage Driver: overlay2
+  Backing Filesystem: btrfs
+  Supports d_type: true
+  Using metacopy: false
+  Native Overlay Diff: true
+  userxattr: false
+ Logging Driver: json-file
+ Cgroup Driver: cgroupfs
+ Cgroup Version: 2
+ Plugins:
+  Volume: local
+  Network: bridge host ipvlan macvlan null overlay
+  Log: awslogs fluentd gcplogs gelf journald json-file local splunk syslog
+ CDI spec directories:
+  /etc/cdi
+  /var/run/cdi
+ Swarm: inactive
+ Runtimes: io.containerd.runc.v2 runc
+ Default Runtime: runc
+ Init Binary: docker-init
+ containerd version: 1c4457e00facac03ce1d75f7b6777a7a851e5c41
+ runc version: d842d7719497cc3b774fd71620278ac9e17710e0
+ init version: de40ad0
+ Security Options:
+  seccomp
+   Profile: builtin
+  cgroupns
+ Kernel Version: 6.17.8-orbstack-00308-g8f9c941121b1
+ Operating System: OrbStack
+ OSType: linux
+ Architecture: x86_64
+ CPUs: 6
+ Total Memory: 15.67GiB
+ Name: orbstack
+ ID: 9d14e252-fafe-4d0c-b045-60572636f69b
+ Docker Root Dir: /var/lib/docker
+ Debug Mode: false
+ Experimental: false
+ Insecure Registries:
+  ::1/128
+  127.0.0.0/8
+ Live Restore Enabled: false
+ Product License: Community Engine
+ Default Address Pools:
+   Base: 192.168.97.0/24, Size: 24
+```
+
+```bash
+cyanc01125000@c4r4s3 mi1 % docker images         
+
+REPOSITORY    TAG       IMAGE ID       CREATED       SIZE
+my-web        1.0       9539304791a0   2 hours ago   62.2MB
+hello-world   latest    e2ac70e7319a   10 days ago   10.1kB
+ubuntu        latest    f794f40ddfff   5 weeks ago   78.1MB
+```
+
+```bash
+cyanc01125000@c4r4s3 mi1 % docker ps -a
+CONTAINER ID   IMAGE         COMMAND                  CREATED             STATUS                         PORTS                                     NAMES
+e655d38ba068   ubuntu        "cat /app/my-data_te…"   About an hour ago   Exited (0) About an hour ago                                             priceless_gauss
+bdd791cdf453   ubuntu        "cat /app/my-data_te…"   About an hour ago   Exited (1) About an hour ago                                             quirky_williams
+73afd6a50d2a   ubuntu        "sleep infinity"         About an hour ago   Up About an hour                                                         vol-test
+b892f997cb26   my-web:1.0    "/docker-entrypoint.…"   About an hour ago   Up About an hour               0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   web-container
+5b72b6582bd1   hello-world   "/hello"                 2 hours ago         Exited (0) 2 hours ago                                                   clever_antonelli
+```
+
+```bash
+cyanc01125000@c4r4s3 mi1 % docker logs web-container
+/docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+/docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+10-listen-on-ipv6-by-default.sh: info: Enabled listen on IPv6 in /etc/nginx/conf.d/default.conf
+/docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+/docker-entrypoint.sh: Configuration complete; ready for start up
+2026/04/03 09:58:40 [notice] 1#1: using the "epoll" event method
+2026/04/03 09:58:40 [notice] 1#1: nginx/1.29.7
+2026/04/03 09:58:40 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+2026/04/03 09:58:40 [notice] 1#1: OS: Linux 6.17.8-orbstack-00308-g8f9c941121b1
+2026/04/03 09:58:40 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 20480:1048576
+2026/04/03 09:58:40 [notice] 1#1: start worker processes
+2026/04/03 09:58:40 [notice] 1#1: start worker process 30
+```
+
+
+```bash
+  . 아래는 docker stats 실행 흔적
+Aliases:
+  docker container logs, docker logs
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS 
+73afd6a50d2a   vol-test        0.00%     148KiB / 15.67GiB     0.00%     956B / 126B       4.24MB / 4.1kB    1 
+b892f997cb26   web-container   0.00%     4.957MiB / 15.67GiB   0.03%     2.98kB / 1.22kB   10.2MB / 8.19kB   7 
+```
+
+################
+
+
+
+
+
 
 - **명령어**: `pwd`, `ls -al`, `mkdir`, `chmod` 등 수행.
 - **권한 검증**: 파일(644->755) 및 디렉토리(755->744) 변경 전후 대조.
@@ -128,7 +262,7 @@ drwxr--r--  2 cyanc01125000  cyanc01125000  64 Apr  3 20:19 test
 % chmod 755 sample.txt
 % ls -l sample.txt
 -rwxr-xr-x  1 cyanc01125000  staff  14 Apr  3 18:43 sample.txt
-
+```
 
 
 
