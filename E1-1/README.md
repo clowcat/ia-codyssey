@@ -27,11 +27,102 @@
 
 ### 4.1. 터미널 및 권한 관리
 
-- **터미널 기본 조작 및 폴더 구성**
+- **pwd**
 ```bash
 cyanc01125000@c4r4s3 ~ % pwd
 /Users/cyanc01125000
 ```
+
+- ** touch, echo, cat 설명**
+# 1. 빈 파일 생성 (touch)
+% touch README.txt
+
+# 2. 내용 작성 (echo)
+% echo "Mission 1 Complete" > README.txt
+
+# 3. 작성 내용 검증 (cat)
+% cat README.txt
+
+
+- **mkdir, cp, mv, rm 실습**
+```bash
+yanc01125000@c4r4s3 ~ % mkdir mi1     
+cyanc01125000@c4r4s3 ~ % cd mi1
+cyanc01125000@c4r4s3 mi1 % touch sample.txt
+cyanc01125000@c4r4s3 mi1 % echo "Hello, Docker" >sample.txt
+cyanc01125000@c4r4s3 mi1 % cat sample.txt 
+Hello, Docker
+
+cyanc01125000@c4r4s3 mi1 % cp sample.txt ../    
+cyanc01125000@c4r4s3 mi1 % cd ..
+cyanc01125000@c4r4s3 ~ % ls -l
+total 8
+drwxr-xr-x   4 cyanc01125000  cyanc01125000   128 Apr  3 18:43 codyssey
+drwx------+  4 cyanc01125000  cyanc01125000   128 Apr  3 19:14 Desktop
+drwx------+  3 cyanc01125000  cyanc01125000    96 Apr  3 18:25 Documents
+drwx------+  3 cyanc01125000  cyanc01125000    96 Apr  3 18:25 Downloads
+drwx------@ 78 cyanc01125000  cyanc01125000  2496 Apr  3 19:16 Library
+drwxr-xr-x   3 cyanc01125000  cyanc01125000    96 Apr  3 20:10 mi1
+drwx------   3 cyanc01125000  cyanc01125000    96 Apr  3 18:25 Movies
+drwx------+  3 cyanc01125000  cyanc01125000    96 Apr  3 18:25 Music
+drwx------   4 cyanc01125000  cyanc01125000   160 Apr  3 18:26 OrbStack
+drwx------+  4 cyanc01125000  cyanc01125000   128 Apr  3 18:25 Pictures
+drwxr-xr-x+  4 cyanc01125000  cyanc01125000   128 Apr  3 18:25 Public
+-rw-r--r--   1 cyanc01125000  cyanc01125000    15 Apr  3 20:12 sample.txt
+
+cyanc01125000@c4r4s3 ~ % mv -i sample.txt sample_copy.txt
+cyanc01125000@c4r4s3 ~ % ls -l
+total 8
+drwxr-xr-x   4 cyanc01125000  cyanc01125000   128 Apr  3 18:43 codyssey
+drwx------+  4 cyanc01125000  cyanc01125000   128 Apr  3 19:14 Desktop
+drwx------+  3 cyanc01125000  cyanc01125000    96 Apr  3 18:25 Documents
+drwx------+  3 cyanc01125000  cyanc01125000    96 Apr  3 18:25 Downloads
+drwx------@ 78 cyanc01125000  cyanc01125000  2496 Apr  3 19:16 Library
+drwxr-xr-x   3 cyanc01125000  cyanc01125000    96 Apr  3 20:10 mi1
+drwx------   3 cyanc01125000  cyanc01125000    96 Apr  3 18:25 Movies
+drwx------+  3 cyanc01125000  cyanc01125000    96 Apr  3 18:25 Music
+drwx------   4 cyanc01125000  cyanc01125000   160 Apr  3 18:26 OrbStack
+drwx------+  4 cyanc01125000  cyanc01125000   128 Apr  3 18:25 Pictures
+drwxr-xr-x+  4 cyanc01125000  cyanc01125000   128 Apr  3 18:25 Public
+-rw-r--r--   1 cyanc01125000  cyanc01125000    15 Apr  3 20:12 sample_copy.txt
+cyanc01125000@c4r4s3 ~ % mv -i sample_copy.txt ./mi1/
+cyanc01125000@c4r4s3 ~ % cd mi1
+cyanc01125000@c4r4s3 mi1 % ls -l
+total 16
+-rw-r--r--  1 cyanc01125000  cyanc01125000  15 Apr  3 20:12 sample_copy.txt
+-rw-r--r--  1 cyanc01125000  cyanc01125000  15 Apr  3 20:11 sample.txt
+cyanc01125000@c4r4s3 mi1 % rm sample_copy.txt 
+cyanc01125000@c4r4s3 mi1 % ls -l
+total 8
+-rw-r--r--  1 cyanc01125000  cyanc01125000  15 Apr  3 20:11 sample.txt
+```
+
+- **chmod로 권한변경**
+```bash
+cyanc01125000@c4r4s3 mission1 % touch sample.txt
+cyanc01125000@c4r4s3 mission1 % echo "Hello, Docker" >sample.txt 
+cyanc01125000@c4r4s3 mission1 % cat sample.txt 
+Hello, Docker
+cyanc01125000@c4r4s3 mission1 % ls -l sample.txt 
+-rw-r--r--  1 cyanc01125000  cyanc01125000  14 Apr  3 18:43 sample.txt
+cyanc01125000@c4r4s3 mission1 % chmod 755 sample.txt 
+cyanc01125000@c4r4s3 mission1 % ls -l sample.txt 
+-rwxr-xr-x  1 cyanc01125000  cyanc01125000  14 Apr  3 18:43 sample.txt
+
+cyanc01125000@c4r4s3 mi1 % mkdir test
+cyanc01125000@c4r4s3 mi1 % ls -l
+total 8
+-rw-r--r--  1 cyanc01125000  cyanc01125000  15 Apr  3 20:11 sample.txt
+drwxr-xr-x  2 cyanc01125000  cyanc01125000  64 Apr  3 20:19 test
+cyanc01125000@c4r4s3 mi1 % chmod 744 test
+cyanc01125000@c4r4s3 mi1 % ls -l
+total 8
+-rw-r--r--  1 cyanc01125000  cyanc01125000  15 Apr  3 20:11 sample.txt
+drwxr--r--  2 cyanc01125000  cyanc01125000  64 Apr  3 20:19 test
+
+```
+
+
 
 - **명령어**: `pwd`, `ls -al`, `mkdir`, `chmod` 등 수행.
 - **권한 검증**: 파일(644->755) 및 디렉토리(755->744) 변경 전후 대조.
