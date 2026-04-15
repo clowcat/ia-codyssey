@@ -33,16 +33,13 @@ cyanc01125000@c4r4s3 ~ % pwd
 /Users/cyanc01125000
 ```
 
-- ** touch, echo, cat 설명**
-# 1. 빈 파일 생성 (touch)
-% touch README.txt
+- **touch, echo, cat 설명**
 
-# 2. 내용 작성 (echo)
-% echo "Mission 1 Complete" > README.txt
-
-# 3. 작성 내용 검증 (cat)
-% cat README.txt
-
+| :명령어: | :설명: | :예시: |
+| :----: | :----: | :----: |
+| touch | 빈 파일 생성 |  touch README.txt |
+| echo | 내용 작성 | echo "Mission 1 Complete" > README.txt |
+| cat | 작성 내용 검증 | cat README.txt |
 
 - **mkdir, cp, mv, rm 실습**
 ```bash
