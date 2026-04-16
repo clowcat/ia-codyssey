@@ -340,7 +340,7 @@ dc5849236cd9   ubuntu    "/bin/bash"   12 minutes ago   Exited (127) 3 seconds a
   . LABEL을 통해 작성자 정보를 메타데이터로 추가함
   . 아래는 Dockerfile 
   
-![Dockerfile Screenshot](https://github.com/clowcat/ia-codyssey/blob/main/screenshot/Dockerfile.png)
+![Dockerfile Screenshot](https://github.com/clowcat/ia-codyssey/blob/main/E1-1/screenshot/Dockerfile.png)
 
   . 아래는 포트 매핑 및 접속 증거
 ![Web Page Screenshot](https://github.com/clowcat/ia-codyssey/blob/main/screenshot/Web%20page.png)
