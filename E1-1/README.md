@@ -343,7 +343,7 @@ dc5849236cd9   ubuntu    "/bin/bash"   12 minutes ago   Exited (127) 3 seconds a
 ![Dockerfile Screenshot](https://github.com/clowcat/ia-codyssey/blob/main/E1-1/screenshot/Dockerfile.png)
 
   . 아래는 포트 매핑 및 접속 증거
-![Web Page Screenshot](https://github.com/clowcat/ia-codyssey/blob/main/screenshot/Web%20page.png)
+![Web Page Screenshot](https://github.com/clowcat/ia-codyssey/blob/main/E1-1/screenshot/Web%20page.png)
 
 ```bash
 cyanc01125000@c4r4s3 mission1 % vi Dockerfile
@@ -404,7 +404,7 @@ b892f997cb26   my-web:1.0   "/docker-entrypoint.…"   7 seconds ago   Up 6 seco
 cyanc01125000@c4r4s3 mission1 % docker run -d -p 8080:80 --name web-test my-web-server:1.0
 480e519de3004a383b64ada4ffa7a662e13ee4
 
-![port mapping-1 Screenshot](https://github.com/clowcat/ia-codyssey/blob/main/screenshot/port_mapping_1.png)
+![port mapping-1 Screenshot](https://github.com/clowcat/ia-codyssey/blob/main/E1-1/screenshot/port_mapping_1.png)
 
   . 3000 포트 매핑
 cyanc01125000@c4r4s3 mission1 % docker rm web-test
@@ -412,7 +412,7 @@ web-test
 cyanc01125000@c4r4s3 mission1 % docker run -d -p 3000:80 --name web-test my-web-server:1.0
 5ae1c73703a04064cc1dab2c182449bf676ea9a9bdb84bdc4f095793a0774df8
 
-![port mapping-2 Screenshot](https://github.com/clowcat/ia-codyssey/blob/main/screenshot/port_mapping_2.png)
+![port mapping-2 Screenshot](https://github.com/clowcat/ia-codyssey/blob/main/E1-1/screenshot/port_mapping_2.png)
 
 
 
@@ -423,10 +423,10 @@ cyanc01125000@c4r4s3 mission1 % docker run -d -p 3000:80 --name web-test my-web-
 cyanc01125000@c4r4s3 mission1 % docker run -d -p 8080:80 --name web-bind-mount -v $(pwd)/html:/usr/share/nginx/html nginx:alpine
 41f0b86fcfde7d26307251d93eee9d2dcf84bcc8544e52490aa458d3c14e602f
 
-![bind mount-before Screenshot](https://github.com/clowcat/ia-codyssey/blob/main/screenshot/bind_mount_before.png)
+![bind mount-before Screenshot](https://github.com/clowcat/ia-codyssey/blob/main/E1-1/screenshot/bind_mount_before.png)
 
 
-![bind mount-after Screenshot](https://github.com/clowcat/ia-codyssey/blob/main/screenshot/bind_mount_after.png)
+![bind mount-after Screenshot](https://github.com/clowcat/ia-codyssey/blob/main/E1-1/screenshot/bind_mount_after.png)
 
 
 
@@ -472,7 +472,7 @@ origin  https://github.com/clowcat/ia-codyssey.git (fetch)
 origin  https://github.com/clowcat/ia-codyssey.git (push)
 ```
 
-![GitHub Screenshot](https://github.com/clowcat/ia-codyssey/blob/main/screenshot/GitHub_connect.png)
+![GitHub Screenshot](https://github.com/clowcat/ia-codyssey/blob/main/E1-1/screenshot/GitHub_connect.png)
 ################
 
 
@@ -480,7 +480,7 @@ origin  https://github.com/clowcat/ia-codyssey.git (push)
 - **(보너스) Docker Compose 기초**
   . 컨테이너 실행 명령이 "문서화된 실행 설정"으로 바뀌는 이유 : 명령어를 일일이 치지 않아도 설정 파일만 있으면 누구나 동일하게 실행 가능하기 때문
 
-![docker-compose Screenshot](https://github.com/clowcat/ia-codyssey/blob/main/screenshot/docker-compose_multi_container.png)
+![docker-compose Screenshot](https://github.com/clowcat/ia-codyssey/blob/main/E1-1/screenshot/docker-compose_multi_container.png)
 
 
 - **(보너스) Docker Compose 멀티 컨테이너**
@@ -643,7 +643,7 @@ cyanc01125000@c4r4s3 mission1 % docker-compose down
 
 - **(보너스) 환경변수 활용**
 
-![docker-compose Screenshot](https://github.com/clowcat/ia-codyssey/blob/main/screenshot/docker-compose_env.png)
+![docker-compose Screenshot](https://github.com/clowcat/ia-codyssey/blob/main/E1-1/screenshot/docker-compose_env.png)
 
 
 ```bash
