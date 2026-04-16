@@ -41,7 +41,7 @@ class QuizGame:
         self.load_data()  # 초기화 시 데이터 로드 
 
     def load_data(self):
-        """파일에서 데이터 로드 및 예외 처리 [cite: 214, 284]"""
+        """파일에서 데이터 로드 및 예외 처리"""
         if not os.path.exists(self.file_path):
             self.set_default_data()  # 파일 없으면 기본 데이터 사용
             return
@@ -56,7 +56,7 @@ class QuizGame:
             self.set_default_data()  # 파일 손상 시 초기화
 
     def set_default_data(self):
-        """기본 과일 퀴즈 5개 설정 [cite: 181, 252]"""
+        """기본 과일 퀴즈 5개 설정"""
         defaults = [
             {"question": "사과의 색깔은 보통 무엇인가요?", "choices": ["빨간색", "파란색", "보라색", "검은색"], "answer": 1},
             {"question": "여름철 대표 과일로 속이 빨갛고 검은 씨가 있는 것은?", "choices": ["참외", "수박", "복숭아", "포도"], "answer": 2},
@@ -69,7 +69,7 @@ class QuizGame:
         self.save_data()
 
     def save_data(self):
-        """데이터를 state.json에 저장 [cite: 283]"""
+        """데이터를 state.json에 저장"""
         data = {
             "quizzes": [q.to_dict() for q in self.quizzes],
             "best_score": self.best_score
@@ -92,13 +92,13 @@ class QuizGame:
                 else:
                     print(f"{min_val}~{max_val} 사이의 숫자만 입력 가능합니다.") # 범위 밖 입력
             except ValueError:
-                print("⚠️ 숫자 변환에 실패했습니다. 숫자를 입력해 주세요.") # 숫자 변환 실패
+                print("숫자 변환에 실패했습니다. 숫자를 입력해 주세요.") # 숫자 변환 실패
             except (EOFError, KeyboardInterrupt):
                 print("\n프로그램을 비정상 종료하지 않고 안전하게 닫습니다.") # 강제 종료 대응
                 self.exit_game()
 
     def play_quiz(self):
-        """퀴즈 풀기 기능 [cite: 256-262]"""
+        """퀴즈 풀기 기능 """
         if not self.quizzes:
             print("등록된 퀴즈가 없습니다.")
             return
@@ -115,14 +115,14 @@ class QuizGame:
             else:
                 print(f"틀렸습니다. 정답은 {quiz.answer}번입니다.")
 
-        print(f"\n🏆 결과: {len(self.quizzes)}문제 중 {correct_count}문제 정답!")
+        print(f"\n결과: {len(self.quizzes)}문제 중 {correct_count}문제 정답!")
         if correct_count > self.best_score:
-            print("🎉 새로운 최고 점수입니다!")
+            print("새로운 최고 점수입니다!")
             self.best_score = correct_count
             self.save_data()
 
     def add_quiz(self):
-        """퀴즈 추가 기능 [cite: 264-268]"""
+        """퀴즈 추가 기능 """
         print("\n새로운 퀴즈를 추가합니다.")
         question = input("문제를 입력하세요: ").strip()
         while not question:
@@ -141,7 +141,7 @@ class QuizGame:
         print("퀴즈가 성공적으로 추가되었습니다!")
 
     def show_list(self):
-        """퀴즈 목록 보기 [cite: 270-272]"""
+        """퀴즈 목록 보기 """
         if not self.quizzes:
             print("등록된 퀴즈가 없습니다.")
             return
@@ -150,20 +150,20 @@ class QuizGame:
             print(f"[{i}] {quiz.question}")
 
     def show_score(self):
-        """최고 점수 확인 [cite: 274-278]"""
-        print(f"\n🏆 최고 점수: {self.best_score}개 정답")
+        """최고 점수 확인 """
+        print(f"\n최고 점수: {self.best_score}개 정답")
 
     def exit_game(self):
-        """종료 기능 [cite: 230]"""
-        print("📂 현재 상태를 저장하고 프로그램을 종료합니다.")
+        """종료 기능 """
+        print("현재 상태를 저장하고 프로그램을 종료합니다.")
         self.save_data()
         sys.exit(0)
 
     def main_menu(self):
-        """메뉴 출력 및 선택 [cite: 227-229]"""
+        """메뉴 출력 및 선택"""
         while True:
             print("\n" + "="*40)
-            print("        🎯 나만의 퀴즈 게임 🎯")
+            print("        나만의 퀴즈 게임 ")
             print("="*40)
             print("1. 퀴즈 풀기\n2. 퀴즈 추가\n3. 퀴즈 목록\n4. 점수 확인\n5. 종료")
             print("="*40)
