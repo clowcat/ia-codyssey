@@ -2,10 +2,6 @@ import json
 import os
 import sys
 
-import json
-import os
-import sys
-
 class Quiz:
     """개별 퀴즈를 표현하는 클래스"""
     def __init__(self, question, choices, answer):
