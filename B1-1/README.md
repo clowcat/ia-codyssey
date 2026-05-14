@@ -17,11 +17,24 @@
 
 ![Dockerfile Screenshot](https://github.com/clowcat/ia-codyssey/blob/main/B1-1/screenshot/ssh_config_after.png)
 
-bash```
+<img src="https://github.com/clowcat/ia-codyssey/blob/main/B1-1/screenshot/ssh_config_after.png" width="300">
+
+```bash
+cyanc01125000@c4r6s7 ia-codyssey % docker rm -f ssh-test 
+cyanc01125000@c4r6s7 ia-codyssey % docker run -d --privileged -p 20022:20022 --name ssh-test ubuntu:22.04 sleep infinity
+cyanc01125000@c4r6s7 ia-codyssey % docker exec -it ssh-test bash
+cyanc01125000@c4r6s7 ia-codyssey % apt install -y vim
+root@02032ddf5c6f:/# apt update
+root@02032ddf5c6f:/# apt install -y vim
+root@02032ddf5c6f:/# apt update && apt install -y openssh-server vim sudo
+root@02032ddf5c6f:/# apt install -y iproute2
+root@02032ddf5c6f:/# vi /etc/ssh/sshd_config
+root@02032ddf5c6f:/# service ssh start
+
+
 root@c836e7b852cc:/# ss -tulnp | grep 20022      
 tcp   LISTEN 0      128          0.0.0.0:20022      0.0.0.0:*    users:(("sshd",pid=4728,fd=3))
 tcp   LISTEN 0      128             [::]:20022         [::]:*    users:(("sshd",pid=4728,fd=4))
-
 ```
 
 ### 2.2. 방화벽(UFW) 정책
@@ -35,7 +48,6 @@ tcp   LISTEN 0      128             [::]:20022         [::]:*    users:(("sshd",
 ```bash
 docker run -d --privileged -p 20022:20022 --name ssh-test ubuntu:22.04 sleep infinity
 docker exec -it ssh-test bash
-apt install -y vim
 apt update && apt install -y ufw
 ```
 
