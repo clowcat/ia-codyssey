@@ -15,7 +15,6 @@
 * **Root 접속 차단**: `PermitRootLogin no` 설정을 통해 Root 계정으로의 직접 원격 접속을 금지하였습니다.
 * **검증 명령어**: `ss -tulnp | grep 20022`
 
-![Dockerfile Screenshot](https://github.com/clowcat/ia-codyssey/blob/main/B1-1/screenshot/ssh_config_after.png)
 
 <img src="https://github.com/clowcat/ia-codyssey/blob/main/B1-1/screenshot/ssh_config_after.png" width="300">
 
@@ -23,7 +22,7 @@
 cyanc01125000@c4r6s7 ia-codyssey % docker rm -f ssh-test 
 cyanc01125000@c4r6s7 ia-codyssey % docker run -d --privileged -p 20022:20022 --name ssh-test ubuntu:22.04 sleep infinity
 cyanc01125000@c4r6s7 ia-codyssey % docker exec -it ssh-test bash
-cyanc01125000@c4r6s7 ia-codyssey % apt install -y vim
+
 root@02032ddf5c6f:/# apt update
 root@02032ddf5c6f:/# apt install -y vim
 root@02032ddf5c6f:/# apt update && apt install -y openssh-server vim sudo
@@ -37,12 +36,82 @@ tcp   LISTEN 0      128          0.0.0.0:20022      0.0.0.0:*    users:(("sshd",
 tcp   LISTEN 0      128             [::]:20022         [::]:*    users:(("sshd",pid=4728,fd=4))
 ```
 
+```bash
+cyanc01125000@c4r6s7 ~ % ssh agent-admin@localhost -p 20022
+The authenticity of host '[localhost]:20022 ([::1]:20022)' can't be established.
+ED25519 key fingerprint is SHA256:xGEZnp5kVmTvIVX5LzPBek07jULttRJaonxzIsIV/hA.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes 
+Warning: Permanently added '[localhost]:20022' (ED25519) to the list of known hosts.
+agent-admin@localhost's password: 
+Welcome to Ubuntu 22.04.5 LTS (GNU/Linux 6.17.8-orbstack-00308-g8f9c941121b1 x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+This system has been minimized by removing packages and content that are
+not required on a system that users do not log into.
+
+To restore this content, you can run the 'unminimize' command.
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+```
+
 ### 2.2. 방화벽(UFW) 정책
 
 * **기본 정책**: 모든 인바운드 트래픽 차단 (Default Deny)
 * **허용 포트**:
 * `20022/tcp` (SSH)
 * `15034/tcp` (Application)
+
+* 계정 추가 및 설정
+```bash
+
+root@f1e298f475ed:/# groupadd agent-common
+root@f1e298f475ed:/# groupadd agent-core
+
+root@02032ddf5c6f:/# useradd -m -s /bin/bash agent-admin
+root@02032ddf5c6f:/# passwd agent-admin
+root@f1e298f475ed:/# usermod -aG sudo,agent-common,agent-core agent-admin
+
+root@02032ddf5c6f:/# useradd -m -s /bin/bash -g agent-common -G agent-core agent-dev
+root@02032ddf5c6f:/# passwd agent-dev
+
+root@02032ddf5c6f:/# useradd -m -s /bin/bash -g agent-common agent-test
+root@02032ddf5c6f:/# passwd agent-test
+
+
+root@02032ddf5c6f:/# usermod -aG sudo agent-admin
+root@02032ddf5c6f:/# usermod -aG sudo agent-dev
+
+root@02032ddf5c6f:/# service ssh restart
+```
+
+* 각 계정의 ID와 소속 그룹 확인
+```bash
+root@f1e298f475ed:/# id agent-admin
+uid=1000(agent-admin) gid=1000(agent-admin) groups=1000(agent-admin),27(sudo),1001(agent-common),1002(agent-core)
+root@f1e298f475ed:/# id agent-dev
+uid=1001(agent-dev) gid=1001(agent-common) groups=1001(agent-common),27(sudo),1002(agent-core)
+```
+
+* 계정 권한 설정
+```bash
+chmod 700 /home/agent-dev
+chmod 700 /home/agent-test
+
+root@f1e298f475ed:/# ls -ld /home/agent-dev /home/agent-test
+drwx------ 1 agent-dev  agent-common 54 May 15 10:02 /home/agent-dev
+drwx------ 1 agent-test agent-common 54 May 15 10:02 /home/agent-test
+
+```
 
 * UFW 설치
 ```bash
@@ -53,9 +122,14 @@ apt update && apt install -y ufw
 
 * UFW 활성화 및 20022/tcp, 15034/tcp 만 허용
 ```bash
+ufw status
+
 ufw allow 20022/tcp
 ufw allow 15034/tcp
+
 ufw enable
+
+ufw status
 ```
 
 
